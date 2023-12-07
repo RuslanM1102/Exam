@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище CharitiesDBModelContainer" CdmEntityContainer="CharitiesDBEntities">
+    <EntitySetMapping Name="Charity">
+      <EntityTypeMapping TypeName="CharitiesDBModel.Charity">
+        <MappingFragment StoreEntitySet="Charity">
+          <ScalarProperty Name="CharityId" ColumnName="CharityId" />
+          <ScalarProperty Name="CharityName" ColumnName="CharityName" />
+          <ScalarProperty Name="CharityDescription" ColumnName="CharityDescription" />
+          <ScalarProperty Name="CharityLogo" ColumnName="CharityLogo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CharityComment">
+      <EntityTypeMapping TypeName="CharitiesDBModel.CharityComment">
+        <MappingFragment StoreEntitySet="CharityComment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CharityId" ColumnName="CharityId" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CharityImage">
+      <EntityTypeMapping TypeName="CharitiesDBModel.CharityImage">
+        <MappingFragment StoreEntitySet="CharityImage">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CharityId" ColumnName="CharityId" />
+          <ScalarProperty Name="ImageSource" ColumnName="ImageSource" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Country">
+      <EntityTypeMapping TypeName="CharitiesDBModel.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+          <ScalarProperty Name="CountryFlag" ColumnName="CountryFlag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gender">
+      <EntityTypeMapping TypeName="CharitiesDBModel.Gender">
+        <MappingFragment StoreEntitySet="Gender">
+          <ScalarProperty Name="Gender1" ColumnName="Gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Registration">
+      <EntityTypeMapping TypeName="CharitiesDBModel.Registration">
+        <MappingFragment StoreEntitySet="Registration">
+          <ScalarProperty Name="RegistrationId" ColumnName="RegistrationId" />
+          <ScalarProperty Name="RunnerId" ColumnName="RunnerId" />
+          <ScalarProperty Name="RegistrationDateTime" ColumnName="RegistrationDateTime" />
+          <ScalarProperty Name="CharityId" ColumnName="CharityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="CharitiesDBModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Runner">
+      <EntityTypeMapping TypeName="CharitiesDBModel.Runner">
+        <MappingFragment StoreEntitySet="Runner">
+          <ScalarProperty Name="RunnerId" ColumnName="RunnerId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CharitiesDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="CharitiesDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

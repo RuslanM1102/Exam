@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище CharitiesDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Charity">
+    <Key>
+      <PropertyRef Name="CharityId" />
+    </Key>
+    <Property Name="CharityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CharityName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CharityDescription" Type="nvarchar" MaxLength="2000" />
+    <Property Name="CharityLogo" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="CharityComment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CharityId" Type="int" />
+    <Property Name="Author" Type="nvarchar" MaxLength="100" />
+    <Property Name="Text" Type="nvarchar(max)" />
+    <Property Name="CreationDate" Type="datetime2" Precision="7" />
+  </EntityType>
+  <EntityType Name="CharityImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CharityId" Type="int" Nullable="false" />
+    <Property Name="ImageSource" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Description" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryCode" />
+    </Key>
+    <Property Name="CountryCode" Type="nchar" MaxLength="3" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CountryFlag" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="Gender" />
+    </Key>
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="RegistrationId" />
+    </Key>
+    <Property Name="RegistrationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RunnerId" Type="int" Nullable="false" />
+    <Property Name="RegistrationDateTime" Type="datetime" Nullable="false" />
+    <Property Name="CharityId" Type="int" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Runner">
+    <Key>
+      <PropertyRef Name="RunnerId" />
+    </Key>
+    <Property Name="RunnerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="CountryCode" Type="nchar" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="80" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="80" />
+    <Property Name="RoleId" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="ProfileImage" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__Runner__CountryC__31EC6D26">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Runner" Type="Self.Runner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="Runner">
+        <PropertyRef Name="CountryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Runner__Email__32E0915F">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Runner" Type="Self.Runner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Runner">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Runner__Gender__33D4B598">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+    <End Role="Runner" Type="Self.Runner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="Gender" />
+      </Principal>
+      <Dependent Role="Runner">
+        <PropertyRef Name="Gender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__RoleId__34C8D9D1">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CharityComment_Charity">
+    <End Role="Charity" Type="Self.Charity" Multiplicity="0..1" />
+    <End Role="CharityComment" Type="Self.CharityComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charity">
+        <PropertyRef Name="CharityId" />
+      </Principal>
+      <Dependent Role="CharityComment">
+        <PropertyRef Name="CharityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CharityImage_Charity">
+    <End Role="Charity" Type="Self.Charity" Multiplicity="1" />
+    <End Role="CharityImage" Type="Self.CharityImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charity">
+        <PropertyRef Name="CharityId" />
+      </Principal>
+      <Dependent Role="CharityImage">
+        <PropertyRef Name="CharityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Registration_Charity">
+    <End Role="Charity" Type="Self.Charity" Multiplicity="0..1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charity">
+        <PropertyRef Name="CharityId" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="CharityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Registration_Runner">
+    <End Role="Runner" Type="Self.Runner" Multiplicity="1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Runner">
+        <PropertyRef Name="RunnerId" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="RunnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище CharitiesDBModelContainer">
+    <EntitySet Name="Charity" EntityType="Self.Charity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CharityComment" EntityType="Self.CharityComment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CharityImage" EntityType="Self.CharityImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Runner" EntityType="Self.Runner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Runner__CountryC__31EC6D26" Association="Self.FK__Runner__CountryC__31EC6D26">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Runner" EntitySet="Runner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Runner__Email__32E0915F" Association="Self.FK__Runner__Email__32E0915F">
+      <End Role="User" EntitySet="User" />
+      <End Role="Runner" EntitySet="Runner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Runner__Gender__33D4B598" Association="Self.FK__Runner__Gender__33D4B598">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="Runner" EntitySet="Runner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__RoleId__34C8D9D1" Association="Self.FK__User__RoleId__34C8D9D1">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CharityComment_Charity" Association="Self.FK_CharityComment_Charity">
+      <End Role="Charity" EntitySet="Charity" />
+      <End Role="CharityComment" EntitySet="CharityComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CharityImage_Charity" Association="Self.FK_CharityImage_Charity">
+      <End Role="Charity" EntitySet="Charity" />
+      <End Role="CharityImage" EntitySet="CharityImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Registration_Charity" Association="Self.FK_Registration_Charity">
+      <End Role="Charity" EntitySet="Charity" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Registration_Runner" Association="Self.FK_Registration_Runner">
+      <End Role="Runner" EntitySet="Runner" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CharitiesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Charity">
+    <Key>
+      <PropertyRef Name="CharityId" />
+    </Key>
+    <Property Name="CharityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CharityName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CharityDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="CharityLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="CharityComment" Relationship="Self.FK_CharityComment_Charity" FromRole="Charity" ToRole="CharityComment" />
+    <NavigationProperty Name="CharityImage" Relationship="Self.FK_CharityImage_Charity" FromRole="Charity" ToRole="CharityImage" />
+    <NavigationProperty Name="Registration" Relationship="Self.FK_Registration_Charity" FromRole="Charity" ToRole="Registration" />
+  </EntityType>
+  <EntityType Name="CharityComment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CharityId" Type="Int32" />
+    <Property Name="Author" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreationDate" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="Charity" Relationship="Self.FK_CharityComment_Charity" FromRole="CharityComment" ToRole="Charity" />
+  </EntityType>
+  <EntityType Name="CharityImage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CharityId" Type="Int32" Nullable="false" />
+    <Property Name="ImageSource" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Charity" Relationship="Self.FK_CharityImage_Charity" FromRole="CharityImage" ToRole="Charity" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryCode" />
+    </Key>
+    <Property Name="CountryCode" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CountryFlag" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Runner" Relationship="Self.FK__Runner__CountryC__31EC6D26" FromRole="Country" ToRole="Runner" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="Gender1" />
+    </Key>
+    <Property Name="Gender1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Runner" Relationship="Self.FK__Runner__Gender__33D4B598" FromRole="Gender" ToRole="Runner" />
+  </EntityType>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="RegistrationId" />
+    </Key>
+    <Property Name="RegistrationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RunnerId" Type="Int32" Nullable="false" />
+    <Property Name="RegistrationDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CharityId" Type="Int32" />
+    <NavigationProperty Name="Charity" Relationship="Self.FK_Registration_Charity" FromRole="Registration" ToRole="Charity" />
+    <NavigationProperty Name="Runner" Relationship="Self.FK_Registration_Runner" FromRole="Registration" ToRole="Runner" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK__User__RoleId__34C8D9D1" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Runner">
+    <Key>
+      <PropertyRef Name="RunnerId" />
+    </Key>
+    <Property Name="RunnerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="CountryCode" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Country" Relationship="Self.FK__Runner__CountryC__31EC6D26" FromRole="Runner" ToRole="Country" />
+    <NavigationProperty Name="Gender1" Relationship="Self.FK__Runner__Gender__33D4B598" FromRole="Runner" ToRole="Gender" />
+    <NavigationProperty Name="Registration" Relationship="Self.FK_Registration_Runner" FromRole="Runner" ToRole="Registration" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Runner__Email__32E0915F" FromRole="Runner" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="RoleId" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ProfileImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Role" Relationship="Self.FK__User__RoleId__34C8D9D1" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="Runner" Relationship="Self.FK__Runner__Email__32E0915F" FromRole="User" ToRole="Runner" />
+  </EntityType>
+  <Association Name="FK_CharityComment_Charity">
+    <End Role="Charity" Type="Self.Charity" Multiplicity="0..1" />
+    <End Role="CharityComment" Type="Self.CharityComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charity">
+        <PropertyRef Name="CharityId" />
+      </Principal>
+      <Dependent Role="CharityComment">
+        <PropertyRef Name="CharityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CharityImage_Charity">
+    <End Role="Charity" Type="Self.Charity" Multiplicity="1" />
+    <End Role="CharityImage" Type="Self.CharityImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charity">
+        <PropertyRef Name="CharityId" />
+      </Principal>
+      <Dependent Role="CharityImage">
+        <PropertyRef Name="CharityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Registration_Charity">
+    <End Role="Charity" Type="Self.Charity" Multiplicity="0..1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Charity">
+        <PropertyRef Name="CharityId" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="CharityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Runner__CountryC__31EC6D26">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="Runner" Type="Self.Runner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryCode" />
+      </Principal>
+      <Dependent Role="Runner">
+        <PropertyRef Name="CountryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Runner__Gender__33D4B598">
+    <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+    <End Role="Runner" Type="Self.Runner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="Gender1" />
+      </Principal>
+      <Dependent Role="Runner">
+        <PropertyRef Name="Gender" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Registration_Runner">
+    <End Role="Runner" Type="Self.Runner" Multiplicity="1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Runner">
+        <PropertyRef Name="RunnerId" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="RunnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__User__RoleId__34C8D9D1">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Runner__Email__32E0915F">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Runner" Type="Self.Runner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Runner">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CharitiesDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Charity" EntityType="Self.Charity" />
+    <EntitySet Name="CharityComment" EntityType="Self.CharityComment" />
+    <EntitySet Name="CharityImage" EntityType="Self.CharityImage" />
+    <EntitySet Name="Country" EntityType="Self.Country" />
+    <EntitySet Name="Gender" EntityType="Self.Gender" />
+    <EntitySet Name="Registration" EntityType="Self.Registration" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="Runner" EntityType="Self.Runner" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_CharityComment_Charity" Association="Self.FK_CharityComment_Charity">
+      <End Role="Charity" EntitySet="Charity" />
+      <End Role="CharityComment" EntitySet="CharityComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CharityImage_Charity" Association="Self.FK_CharityImage_Charity">
+      <End Role="Charity" EntitySet="Charity" />
+      <End Role="CharityImage" EntitySet="CharityImage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Registration_Charity" Association="Self.FK_Registration_Charity">
+      <End Role="Charity" EntitySet="Charity" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Runner__CountryC__31EC6D26" Association="Self.FK__Runner__CountryC__31EC6D26">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="Runner" EntitySet="Runner" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Runner__Gender__33D4B598" Association="Self.FK__Runner__Gender__33D4B598">
+      <End Role="Gender" EntitySet="Gender" />
+      <End Role="Runner" EntitySet="Runner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Registration_Runner" Association="Self.FK_Registration_Runner">
+      <End Role="Runner" EntitySet="Runner" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK__User__RoleId__34C8D9D1" Association="Self.FK__User__RoleId__34C8D9D1">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Runner__Email__32E0915F" Association="Self.FK__Runner__Email__32E0915F">
+      <End Role="User" EntitySet="User" />
+      <End Role="Runner" EntitySet="Runner" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
